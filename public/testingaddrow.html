@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 3 Final</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- still needs to be added to repo -->
+    <!-- <link rel="stylesheet" href="assets/fontawesome/css/all.css"/> -->
+    <link rel="stylesheet" type="text/css" href="adjustsong.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+
+    <!-- NAV BAR + HERO -->
+    <section class="hero is-small">
+        <!-- Hero head: will stick at the top -->
+        <div class="hero-head">
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container">
+              <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                  <img src="images/logo.svg" id="logo" alt="Logo of white shuffle icon over a dark circle"></a>
+                </a>
+            
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </a>
+              </div>
+
+              <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-end">
+                  <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Charts
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="ustop50.html">
+                            US Top 50
+                        </a>
+                        <a class="navbar-item" href="globaltop50.html">
+                            Global Top 50
+                        </a>
+                    </div>
+                  </div>
+                  <a class="navbar-item" href="playlists.html">
+                    My Playlists
+                  </a>
+                  <a class="navbar-item" href="testingaddrow.html">
+                    Your Added Songs
+                  </a>
+                  <div class="navbar-item">
+                    <div class="buttons">
+                      <a class="button is-dark" href="createplaylists.html">
+                          Generate Now
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      
+        <!-- Hero content: will be in the middle -->
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <p class="title">
+              Your Added Songs!
+            </p>
+          </div>
+        </div>
+    </section>
+
+    <!-- SPACER -->
+    <div class="block"></div>
+
+    <!-- PAGE CONTENT -->
+    <section>
+       <div class="container is-max-desktop">
+            <div id="wrapper">
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth center" align='center' cellspacing=2 cellpadding=5 id="data_table" border=1>
+                    <tr>
+                        <th>Song</th>
+                        <th>Artist</th>
+                        <th>Explicit</th>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="song_name"></td>
+                        <td><input type="text" id="artist_name"></td>
+                        <td><input type="text" id="explicitInput"></td>
+                        <td><input type="button" class="add" onclick="add_row();" value="Add"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div> 
+    </section>
+    
+
+    
+
+    <!-- SPACER -->
+    <div class="block"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Spotify Music Generator</strong> by 
+            <a href="https://github.com/kthrnv/Group3-Final-INST377SP2021">
+                Chris Shea, Ryan Moy, Emily Zheng, Matthew Nguyen, & Katherine Vo</a>.
+          </p>
+          <p>
+              INST377 Spring 2021 Group 3
+          </p>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="testingaddrow.js"></script>
+</body>
+</html>

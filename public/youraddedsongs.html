@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- still needs to be added to repo -->
     <!-- <link rel="stylesheet" href="assets/fontawesome/css/all.css"/> -->
+    <link rel="stylesheet" type="text/css" href="adjustsong.css" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
@@ -15,42 +16,47 @@
     <section class="hero is-small">
       <div class="hero-head">
         <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a class="navbar-item">
-              <a href="index.html"><img src="images/logo.svg" id="logo" alt="Logo of white shuffle icon over a dark circle"></a>
-            </a>
-        
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-        
-          <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-end">
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    Charts
-                </a>
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="ustop50.html">
-                        US Top 50
-                    </a>
-                    <a class="navbar-item" href="globaltop50.html">
-                        Global Top 50
-                    </a>
-                </div>
-              </div>
-              <a class="navbar-item" href="playlists.html">
-                My Playlists
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="index.html">
+                <img src="images/logo.svg" id="logo" alt="Logo of white shuffle icon over a dark circle"></a>
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
               </a>
             </div>
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-dark" href="createplaylists.html">
-                    Generate Now
+
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                      Charts
+                  </a>
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item" href="ustop50.html">
+                          US Top 50
+                      </a>
+                      <a class="navbar-item" href="globaltop50.html">
+                          Global Top 50
+                      </a>
+                  </div>
+                </div>
+                <a class="navbar-item" href="playlists.html">
+                  My Playlists
                 </a>
+                <a class="navbar-item" href="testingaddrow.html">
+                  Your Added Songs
+                </a>
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="button is-dark" href="createplaylists.html">
+                        Generate Now
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -93,23 +99,23 @@
                           <!-- BEGINNING OF FORM -->
                           <form action='/api/songs' method='post'>
                             <div class='form-row'>
-                              <label for='song-title'>Song Title</label>
-                              <input class="input" id='song-title' name='song-title' type='text'/>
+                              <label for='songInput'>Song Title</label>
+                              <input class="input" id='songInput' name='songInput' type='text'/>
                             </div>
                             <br>
                             <div class='form-row'>
-                              <label for='artist-name'>Artist Name</label>
-                              <input class="input" id='artist-name' name='artist-name' type='text'/>
+                              <label for='artistInput'>Artist Name</label>
+                              <input class="input" id='artistInput' name='artistInput' type='text'/>
                             </div>
                             <br>
                             <div class='form-row'>
-                              <label for='genre'>Explicit?</label>
+                              <label for='explicitInput'>Explicit?</label>
                               <label class="radio">
-                                <input type="radio" name="answer">
+                                <input type="radio" name="explicitInput" id="explicitInput">
                                 Yes
                               </label>
                               <label class="radio">
-                                <input type="radio" name="answer">
+                                <input type="radio" name="explicitInput" id="explicitInput">
                                 No
                               </label>
                             </div>
@@ -143,7 +149,7 @@
                     <th>Artist</th>
                     <th>Explicit</th>
                 </thead>
-                <tbody class="playlist-table"></tbody>
+                <tbody class="playlist-table" id="myTable"></tbody>
             </table>
         </div>
 
@@ -169,6 +175,7 @@
     </footer>
 
     <!-- Link JS -->
+    <script src="adjustsong.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
