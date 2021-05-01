@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- still needs to be added to repo -->
     <!-- <link rel="stylesheet" href="assets/fontawesome/css/all.css"/> -->
+    <link rel="stylesheet" type="text/css" href="adjustsong.css" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
@@ -96,23 +97,23 @@
                           <!-- BEGINNING OF FORM -->
                           <form action='/api/songs' method='post'>
                             <div class='form-row'>
-                              <label for='song-title'>Song Title</label>
-                              <input class="input" id='song-title' name='song-title' type='text'/>
+                              <label for='songInput'>Song Title</label>
+                              <input class="input" id='songInput' name='songInput' type='text'/>
                             </div>
                             <br>
                             <div class='form-row'>
-                              <label for='artist-name'>Artist Name</label>
-                              <input class="input" id='artist-name' name='artist-name' type='text'/>
+                              <label for='artistInput'>Artist Name</label>
+                              <input class="input" id='artistInput' name='artistInput' type='text'/>
                             </div>
                             <br>
                             <div class='form-row'>
-                              <label for='genre'>Explicit?</label>
+                              <label for='explicitInput'>Explicit?</label>
                               <label class="radio">
-                                <input type="radio" name="answer">
+                                <input type="radio" name="explicitInput" id="explicitInput">
                                 Yes
                               </label>
                               <label class="radio">
-                                <input type="radio" name="answer">
+                                <input type="radio" name="explicitInput" id="explicitInput">
                                 No
                               </label>
                             </div>
@@ -146,7 +147,7 @@
                     <th>Artist</th>
                     <th>Explicit</th>
                 </thead>
-                <tbody class="playlist-table"></tbody>
+                <tbody class="playlist-table" id="myTable"></tbody>
             </table>
         </div>
 
@@ -172,6 +173,7 @@
     </footer>
 
     <!-- Link JS -->
+    <script src="adjustsong.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
