@@ -103,19 +103,19 @@
                               <input class="input" id='songInput' name='songInput' type='text'/>
                             </div>
                             <br>
-                            <div class='form-row'>
+                            <!-- <div class='form-row'>
                               <label for='artistInput'>Artist Name</label>
                               <input class="input" id='artistInput' name='artistInput' type='text'/>
                             </div>
-                            <br>
+                            <br> -->
                             <div class='form-row'>
                               <label for='explicitInput'>Explicit?</label>
                               <label class="radio">
-                                <input type="radio" name="explicitInput" id="explicitInput">
+                                <input type="radio" name="explicitInput" id="explicitInput" value="true">
                                 Yes
                               </label>
                               <label class="radio">
-                                <input type="radio" name="explicitInput" id="explicitInput">
+                                <input type="radio" name="explicitInput" id="explicitInput" value="false">
                                 No
                               </label>
                             </div>
@@ -146,7 +146,6 @@
             <table class="table is-bordered is-striped is-hoverable is-fullwidth center">
                 <thead>
                     <th>Song</th>
-                    <th>Artist</th>
                     <th>Explicit</th>
                 </thead>
                 <tbody class="playlist-table" id="myTable"></tbody>
