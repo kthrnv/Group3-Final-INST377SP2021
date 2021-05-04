@@ -416,21 +416,19 @@ router.route('/songs')
     }
   })
   .post(async (req, res) => {
+    console.log("post request on songs", req.body)
     const songs = await db.Songs.findAll();
     const currentId = (await songs.length) + 1;
     try {
       const newSong = await db.Songs.create({
         song_id: currentId,
-        song_name: req.body.song_name,
-        explicit: req.body.explicit,
-        artist_id: req.body.artist_id,
-        album_id: req.body.album_id
+        song_name: req.body.songInput,
+        explicit: req.body.explicitInput
       });
-      res.json(newSong);
-      res.send("New record added: ", newSong);
+      // res.json(newSong);
     } catch (err) {
       console.error(err);
-      res.error('Server error');
+      res.json('Server error');
     }
   })
   .put(async (req, res) => {
@@ -584,3 +582,24 @@ router.route("/songsArtists").get(async (req, res) => {
     res.json({ message: "Error" });
   }
 });
+
+/*
+  TABLE SHOWS ONLY USER ADDED SONGS
+*/
+const Op = db.Sequelize.Op;
+router.route('/userSongs')
+  .get(async (req, res) => {
+    try {
+      const songs = await db.Songs.findAll({
+        where: {
+          song_id: {
+            [Op.gt]: 66
+          }
+        }
+      })
+      res.json({data: songs});
+    } catch (err) {
+      console.error(err);
+      res.json('Server error');
+    }
+  })

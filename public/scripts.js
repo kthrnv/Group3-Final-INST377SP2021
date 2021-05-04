@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* 
-    POPULATING CHARTS
+    POPULATING CHARTS/ TABLES
 */
 async function getUSCharts() {
   const songRequest = await fetch('/api/wholeUSchart');
@@ -43,13 +43,21 @@ async function getGlobalCharts() {
   return songData;
 }
 
+async function getUserAddedSongs() {
+  const songRequest = await fetch('/api/userSongs');
+  const songData = await songRequest.json();
+  return songData;
+}
+
 async function windowActions() {
   const usResults = await getUSCharts();
   const globalResults = await getGlobalCharts();
+  const userResults = await getUserAddedSongs();
   // console.table(usCharts.data);
   // console.table(globalResults.data);
   const usCharts = usResults.data;
   const globalCharts = globalResults.data;
+  const userTable = userResults.data;
 
   const usTopSong = document.querySelector('.us-top-songs');
   usCharts.forEach((item) => {
@@ -79,6 +87,21 @@ async function windowActions() {
 
     if (globalTopSong) {
       globalTopSong.append(appendItem); 
+    }
+        
+  });
+
+  const userAddedSong = document.querySelector('.playlist-table');
+  userTable.forEach((item) => {
+    const appendItem = document.createElement('tr');
+
+    appendItem.innerHTML = `
+            <td id="song_col">${item.song_name}</td>
+            <td id="explicit_col">${item.explicit}</td>
+            <td><input type='button' id='edit_button"+table_len+"' value='Edit' class='edit' onclick='edit_row("+table_len+")'> <input type='button' id='save_button"+table_len+"' value='Save' class='save' onclick='save_row("+table_len+")'> <input type='button' value='Delete' class='delete' onclick='delete_row("+table_len+")'></td>`;
+
+    if (userAddedSong) {
+      userAddedSong.append(appendItem); 
     }
         
   });
