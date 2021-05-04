@@ -9,24 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  async function getSongsArtists() {
-    const songRequest = await fetch('/api/songsArtists');
+  async function getSongs() {
+    const songRequest = await fetch('/api/songs');
     const songData = await songRequest.json();
     return songData;
   }
 
   async function windowActions() {
     
-    const songsArtists = await getSongsArtists();
-    const songsArtistsData = songsArtists.data;
+    const songs = await getSongs();
+    const songsData = songs.data;
 
     //console.table(songsArtists.data);
 
     const random = [1,2,3,4,5,6,7,8,9,10];
     
     const selectedSongs = random.map((element) => {
-      const randomNum = getRando(0, songsArtistsData.length - 1);
-      return songsArtistsData[randomNum];
+      const randomNum = getRando(0, songsData.length - 1);
+      return songsData[randomNum];
     });
 
     console.table(selectedSongs)
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       appendItem.innerHTML = `
               <td>${item.song_name}</td>
-              <td>${item.artist_name}</td>
               <td>${item.explicit}</td>`;
           
       if (table) {
