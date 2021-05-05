@@ -41,12 +41,15 @@ There is no prewritten tests in this repository. Testing was mainly done through
 ## APIs
 `/wholeUSchart` - API route that gets songs on the US Top 50 charts with its respective artists
 * GET - returns data from US Top 50 table with associated metadata added for each song from Artists and Songs tables
+
 `/wholeGlobalchart` - API route that gets songs on the Global Top 50 charts with its respective artists
 * GET - returns data from Global Top 50 table with associated metadata added for each song from Artists and Songs tables
+
 `/songs` - API route that gets all the songs in the database (original data + user-added data)
 * GET - returns all existing data from Songs table if table length is greater than 0
 * POST - creates a new entry in the Songs table based on currentId value
 * PUT - updates an existing entry in the Songs table
+
 `/userSongs` - API route for data of only user-added songs
 * GET - returns data from Songs table that are greater than song_id of 66 (song_id after 66 are songs not originally included in the database)
 
@@ -57,6 +60,7 @@ There is no prewritten tests in this repository. Testing was mainly done through
 * Users cannot specify the artist of a song they are adding because Artists and Songs data are on two different tables within the database. Because of this complexity, only the song name and explicit values are requested (both part of Songs data) and are displayed in the generator table and user-added table.
 
 **Future Development:**
+
 This functionality can be expanded upon in the future to include certain filters for specific artists, genres, and song content. Future features that would be strong additions to the app include:
 * Continuing with the original plan and implementing custom playlists
 * Cross-checking that user-added songs are real songs available on Spotify or Apple Music
