@@ -100,7 +100,7 @@
                           <form action='/api/songs' method='post'>
                             <div class='form-row'>
                               <label for='songInput'>Song Title</label>
-                              <input class="input" id='songInput' name='songInput' type='text'/>
+                              <input class="input" id='songInput' name='songInput' type='text' required/>
                             </div>
                             <br>
                             <!-- <div class='form-row'>
@@ -111,7 +111,7 @@
                             <div class='form-row'>
                               <label for='explicitInput'>Explicit?</label>
                               <label class="radio">
-                                <input type="radio" name="explicitInput" id="explicitInput" value="true">
+                                <input type="radio" name="explicitInput" id="explicitInput" value="true" required>
                                 Yes
                               </label>
                               <label class="radio">
@@ -122,7 +122,7 @@
                           
                         </section>
                         <footer class="modal-card-foot">
-                        <button class="button is-primary center" type="submit" name="submit" id="submit" formmethod="post">Add</button>
+                        <button class="button is-link center" type="submit" name="submit" id="submit" formmethod="post">Add</button>
                         <button class="button center">Cancel</button>
                         </footer>
                           </form>
