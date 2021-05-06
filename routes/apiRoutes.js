@@ -393,8 +393,21 @@ router.route('/songs')
       res.error('Server error');
     }
   })
-  .delete((req, res) => {
-    res.send('Action unavailable');
+  .delete(async (req, res) => {
+    try {
+        // await db.Songs.destroy({
+        //   where: {
+        //     song_name: req.params.song_name,
+        //     explicit: req.params.explicit
+        //   }
+        // });
+        console.log(req.params.song_name);
+        console.log(req.params.explicit);
+        res.send('Successfully Deleted');
+    } catch (err) {
+      console.error(err);
+      res.error('Server error');
+    }
   })
 
 router.route('/songs/:song_id')
