@@ -8,8 +8,6 @@
     <link rel="shortcut icon" href="images/logoicon.png">
     <title>Group 3 Final</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <!-- still needs to be added to repo -->
-    <!-- <link rel="stylesheet" href="assets/fontawesome/css/all.css"/> -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 <body>
@@ -71,7 +69,7 @@
         <div class="hero-body">
           <div class="container has-text-centered">
             <p class="title">
-              Generate New Recommendations!
+              About
             </p>
           </div>
         </div>
@@ -79,33 +77,36 @@
 
     <!-- SPACER -->
     <div class="block"></div>
-    
+
     <!-- Page Content -->
     <section>
-      <div class="container is-max-desktop">
-        <!-- SPACER -->
-        <div class="block"></div>
-
-        <!-- Refresh Button -->
-        <a class="button is-rounded is-link" onClick="window.location.reload();">
-          <span class="icon is-small">
-            <i class="fas fa-sync-alt"></i>
-          </span>
-          Refresh
-        </a>
-        
-        <!-- SPACER -->
-        <div class="block"></div>
-
-        <!-- Randomized Playlist -->
-        <table class="table is-bordered is-striped is-hoverable is-fullwidth center">
-          <thead>
-              <th>Song</th>
-              <th>Explicit</th>
-          </thead>
-          <tbody class="playlist-table"></tbody>
-        </table>
-      </div>
+        <div class="container is-max-desktop">
+          <div class="box">
+            <h1 class="title is-3">What is Randomize?</h1>
+            <p class="subtitle is-5">
+              Randomize will generate random songs for people to try out! Songs are based on Spotify's Global Top 50 Charts,
+              US Top 50 Charts, and songs users added to our database. Know a song you like that is not in the database?
+              Submit them in <a href="youraddedsongs.html">Your Added Songs</a> to be included for others to enjoy!
+            </p>
+          </div>
+          <div class="box">
+            <h1 class="title is-3">Introduction</h1>
+            <p class="subtitle is-5">
+              Randomize is an application dedicated to generating random music recommendations for users to 
+              expand their musical horizons. It is a web application powered by HTML, Sequelize and Javascript.
+              It is also formatted in CSS through the Bulma library.
+            </p>
+          </div>
+          <div class="box">
+            <h1 class="title is-3">Overview</h1>
+            <p class="subtitle is-5">
+              Our application functions by pulling information from a mySQL database containing a list of the top
+              50 songs from Spotify. Our program utilizes an API created in Sequelize by our team to randomly
+              select 10 songs from this database and place them in a randomized table at the user’s request. Our
+              application was developed for use in most modern internet desktop browsers and is compatible with Chrome, Firefox, and Edge.
+            </p>
+          </div>
+        </div>
     </section>
 
     <!-- SPACER -->
@@ -126,7 +127,6 @@
     </footer>
 
     <!-- Link JS -->
-    <script src="js/playlist-view.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 </html>
