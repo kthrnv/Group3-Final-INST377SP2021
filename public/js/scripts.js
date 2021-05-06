@@ -71,6 +71,10 @@ async function edit_row(event){
   // event.target.innerText = explicitUpdate;
 }
 
+async function delete_row(event) {
+ 
+}
+
 async function windowActions() {
   const usResults = await getUSCharts();
   const globalResults = await getGlobalCharts();
@@ -114,13 +118,18 @@ async function windowActions() {
   });
 
   const userAddedSong = document.querySelector('.playlist-table');
+  let rowIndex = document.getElementById("myTable").rows.length;
+  console.log(rowIndex);
   userTable.forEach((item) => {
     const appendItem = document.createElement('tr');
-
+    rowIndex++;
+    console.log(rowIndex);
     appendItem.innerHTML = `
             <td id="song_col">${item.song_name}</td>
             <td id="explicit_col">${item.explicit}</td>
-            <td><input type='button' id='edit_button"+table_len+"' value='Edit' class='edit' onclick='edit_row("+table_len+")'> <input type='button' id='save_button"+table_len+"' value='Save' class='save' onclick='save_row("+table_len+")'> <input type='button' value='Delete' class='delete' onclick='delete_row("+table_len+")'></td>`;
+            <td><input type='button' id='edit_button${rowIndex}' value='Edit' class='edit' onclick='edit_row'> 
+            <input type='button' id='save_button${rowIndex}' value='Save' class='save' onclick='save_row'> 
+            <input type='button' id='delete_button${rowIndex}' value='Delete' class='delete' onclick='delete_row'></td>`;
 
     if (userAddedSong) {
       userAddedSong.append(appendItem); 
@@ -129,6 +138,9 @@ async function windowActions() {
   });
   const editBtn = document.querySelector('.edit');
   editBtn.addEventListener('click', (event) => { edit_row(event); });
+
+  const deleteBtn = document.querySelector('.delete');
+  deleteBtn.addEventListener('click', (event) => { delete_row(event); });
 }
 
 window.onload = windowActions;
