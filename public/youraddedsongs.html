@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/logoicon.png">
     <title>Group 3 Final</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- still needs to be added to repo -->
     <!-- <link rel="stylesheet" href="assets/fontawesome/css/all.css"/> -->
     <link rel="stylesheet" type="text/css" href="adjustsong.css" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 <body>
     <!-- NAV BAR + HERO -->
@@ -44,10 +46,10 @@
                       </a>
                   </div>
                 </div>
-                <a class="navbar-item" href="playlists.html">
+                <!-- <a class="navbar-item" href="playlists.html">
                   My Playlists
-                </a>
-                <a class="navbar-item" href="testingaddrow.html">
+                </a> -->
+                <a class="navbar-item" href="youraddedsongs.html">
                   Your Added Songs
                 </a>
                 <div class="navbar-item">
@@ -100,7 +102,7 @@
                           <form action='/api/songs' method='post'>
                             <div class='form-row'>
                               <label for='songInput'>Song Title</label>
-                              <input class="input" id='songInput' name='songInput' type='text'/>
+                              <input class="input" id='songInput' name='songInput' type='text' required/>
                             </div>
                             <br>
                             <!-- <div class='form-row'>
@@ -111,7 +113,7 @@
                             <div class='form-row'>
                               <label for='explicitInput'>Explicit?</label>
                               <label class="radio">
-                                <input type="radio" name="explicitInput" id="explicitInput" value="true">
+                                <input type="radio" name="explicitInput" id="explicitInput" value="true" required>
                                 Yes
                               </label>
                               <label class="radio">
@@ -122,7 +124,7 @@
                           
                         </section>
                         <footer class="modal-card-foot">
-                        <button class="button is-primary center" type="submit" name="submit" id="submit" formmethod="post">Add</button>
+                        <button class="button is-link center" type="submit" name="submit" id="submit" formmethod="post">Add</button>
                         <button class="button center">Cancel</button>
                         </footer>
                           </form>
@@ -174,7 +176,6 @@
     </footer>
 
     <!-- Link JS -->
-    <script src="adjustsong.js"></script>
-    <script src="scripts.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>

@@ -14,15 +14,7 @@ export default (sequelize, DataTypes) => {
         explicit: {
             type: DataTypes.BOOLEAN,
             allowNull: false
-        },
-        artist_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        album_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
+        }
     },
     {freezeTableName: true, timestamps: false}
     );

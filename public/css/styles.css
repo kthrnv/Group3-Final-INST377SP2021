@@ -34,7 +34,7 @@
 }
 
 .hero {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.7),rgba(188, 230, 243, 0.4)), url(images/record\ player.jpg);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7),rgba(188, 230, 243, 0.4)), url(../images/record\ player.jpg);
     background-position: center;
     background-size: cover;
     position: relative;

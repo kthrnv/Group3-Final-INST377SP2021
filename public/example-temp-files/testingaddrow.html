@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/logoicon.png">
     <title>Group 3 Final</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- still needs to be added to repo -->
@@ -46,9 +48,9 @@
                         </a>
                     </div>
                   </div>
-                  <a class="navbar-item" href="playlists.html">
+                  <!-- <a class="navbar-item" href="playlists.html">
                     My Playlists
-                  </a>
+                  </a> -->
                   <a class="navbar-item" href="testingaddrow.html">
                     Your Added Songs
                   </a>
@@ -82,7 +84,7 @@
     <section>
        <div class="container is-max-desktop">
             <div id="wrapper">
-                <table class="table is-bordered is-striped is-hoverable is-fullwidth center" align='center' cellspacing=2 cellpadding=5 id="data_table" border=1>
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth center" id="data_table">
                     <tr>
                         <th>Song</th>
                         <th>Artist</th>
@@ -90,10 +92,12 @@
                     </tr>
 
                     <tr>
-                        <td><input type="text" id="song_name"></td>
+                      <form action='/api/songs' method='post'>
+                        <td><input type="text" id="songInput"></td>
                         <td><input type="text" id="artist_name"></td>
                         <td><input type="text" id="explicitInput"></td>
-                        <td><input type="button" class="add" onclick="add_row();" value="Add"></td>
+                        <td><input type="button" class="add" name="submit" id="submit" formmethod="post" onclick="add_row();" value="Add"></td>
+                      </form>       
                     </tr>
 
                 </table>

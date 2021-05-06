@@ -49,6 +49,28 @@ async function getUserAddedSongs() {
   return songData;
 }
 
+/*
+  Handle Edit Button Click
+*/
+async function edit_row(event){
+  console.log('clicked button', event.target)
+  console.log('button value', event.target.value);
+  // const name = document.querySelector('#song_col');
+  // const url = `api/songs/${event.target.value}`;
+  // const put = await fetch(url, {
+  //   method: 'PUT',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({song_name: name.value, song_id: event.target.value})
+  // });
+  // const nameUpdate = await put.json();
+  // const explicitUpdate = await put.json();
+  // // console.log(nameUpdate);
+  // event.target.innerText = nameUpdate;
+  // event.target.innerText = explicitUpdate;
+}
+
 async function windowActions() {
   const usResults = await getUSCharts();
   const globalResults = await getGlobalCharts();
@@ -103,8 +125,10 @@ async function windowActions() {
     if (userAddedSong) {
       userAddedSong.append(appendItem); 
     }
-        
+
   });
+  const editBtn = document.querySelector('.edit');
+  editBtn.addEventListener('click', (event) => { edit_row(event); });
 }
 
 window.onload = windowActions;

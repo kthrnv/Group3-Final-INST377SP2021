@@ -37,7 +37,7 @@ function delete_row(no)
 
 function add_row()
 {
- let new_song=document.getElementById("song_name").value;
+ let new_song=document.getElementById("songInput").value;
  let new_artist=document.getElementById("artist_name").value;
 //  if (document.getElementById("explicitInput").checked) {
 //     let new_explicit=document.getElementById("explicitInput").value;
@@ -48,7 +48,7 @@ let new_explicit=document.getElementById("explicitInput").value;
  let table_len=(table.rows.length)-1;
  let row = table.insertRow(table_len).outerHTML="<tr id='row"+table_len+"'><td id='song_row"+table_len+"'>"+new_song+"</td><td id='artist_row"+table_len+"'>"+new_artist+"</td><td id='explicit_row"+table_len+"'>"+new_explicit+"</td><td><input type='button' id='edit_button"+table_len+"' value='Edit' class='edit' onclick='edit_row("+table_len+")'> <input type='button' id='save_button"+table_len+"' value='Save' class='save' onclick='save_row("+table_len+")'> <input type='button' value='Delete' class='delete' onclick='delete_row("+table_len+")'></td></tr>";
 
- document.getElementById("song_name").value="";
+ document.getElementById("songInput").value="";
  document.getElementById("artist_name").value="";
  document.getElementById("explicitInput").value="";
 }
