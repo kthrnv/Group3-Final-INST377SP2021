@@ -395,14 +395,14 @@ router.route('/songs')
   })
   .delete(async (req, res) => {
     try {
-        // await db.Songs.destroy({
-        //   where: {
-        //     song_name: req.params.song_name,
-        //     explicit: req.params.explicit
-        //   }
-        // });
-        console.log(req.params.song_name);
-        console.log(req.params.explicit);
+        await db.Songs.destroy({
+          where: {
+            song_name: req.body.song_name,
+            explicit: req.body.explicit
+          }
+        });
+        console.log(req.body.song_name);
+        console.log(req.body.explicit);
         res.send('Successfully Deleted');
     } catch (err) {
       console.error(err);
