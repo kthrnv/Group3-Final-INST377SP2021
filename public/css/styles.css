@@ -65,3 +65,18 @@
 #three {
     border-radius: 25px;
 }
+
+#edit_button, #delete_button {
+    background-color: #eef3fc;
+    color: #2160c4;
+    border-color: transparent;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 290486px;
+    padding-left: calc(1em + .25em);
+    padding-right: calc(1em + .25em);
+}
