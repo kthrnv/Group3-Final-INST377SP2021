@@ -191,7 +191,7 @@ async function windowActions() {
     appendItem.innerHTML = `
             <td id="song_col" class="row${rowIndex}">${item.song_name}</td>
             <td id="explicit_col" class="row${rowIndex}">${item.explicit}</td>
-            <td><input type='button' id='edit_button' value='Edit' class='edit row${rowIndex} modal-button' onclick='edit_row' data-target="modal-edit${rowIndex}" aria-haspopup="true">
+            <td class="is-narrow"><input type='button' id='edit_button' value='Edit' class='edit row${rowIndex} modal-button' onclick='edit_row' data-target="modal-edit${rowIndex}" aria-haspopup="true">
             
             <div id="modal-edit${rowIndex}" class="modal">
                     <div class="modal-background"></div>
@@ -224,7 +224,7 @@ async function windowActions() {
                 </div>
 
 
-            <input type='button' id='delete_button' value='Delete' class='delete row${rowIndex}' onclick='delete_row'></td>`;
+            <input type='button' id='delete_button' value='Delete' class='deleted row${rowIndex}' onclick='delete_row'></td>`;
 
     if (userAddedSong) {
       userAddedSong.append(appendItem);
@@ -232,7 +232,7 @@ async function windowActions() {
   });
   const editBtn = document.querySelectorAll(".edit");
   //console.log(editBtn);
-  const deleteBtn = document.querySelectorAll(".delete");
+  const deleteBtn = document.querySelectorAll(".deleted");
   //console.log(deleteBtn);
   const saveBtn = document.querySelectorAll(".save");
 
@@ -240,7 +240,7 @@ async function windowActions() {
   let $modals = document.querySelectorAll(".modal");
   let $modalButtons = document.querySelectorAll(".modal-button");
   let $modalCloses = document.querySelectorAll(
-    ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
+    ".modal-background, .modal-close, .modal-card-head .deleted, .modal-card-foot .button"
   );
   editBtn.forEach((item) => {
     if ($modalButtons.length > 0) {
