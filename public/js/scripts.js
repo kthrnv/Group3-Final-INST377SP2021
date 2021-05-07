@@ -52,6 +52,8 @@ async function getUserAddedSongs() {
 async function edit_row(event) {
   console.log("clicked button", event.target);
   console.log("button value", event.target.value);
+
+  
   // const name = document.querySelector('#song_col');
   // const url = `api/songs/${event.target.value}`;
   // const put = await fetch(url, {
@@ -78,21 +80,22 @@ async function delete_row(event) {
     console.log(row);
     const rowData = document.getElementsByClassName(row);
     const songName = rowData[0].innerText;
-    const explicit = rowData[1].innerText;
-    console.log(songName, explicit);
+    const explicitVal = rowData[1].innerText;
+    console.log(songName, explicitVal);
 
-
-    const url = `api/songs/`;
-    const dlt = await fetch(url, {
-      method: "DELETE",
+    fetch('/api/songs', {
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        song_name: songName,
-        explicit: explicit
-      })
-    });
+      body: JSON.stringify({song_name: songName, explicit: explicitVal})
+    })
+      //.then((fromServer) => fromServer.json())
+      //.then((jsonFromServer) => runThisWithResultsFromServer(jsonFromServer))
+      .catch((err) => {
+        console.log(err);
+      });
+
   } 
 }
 
@@ -147,7 +150,6 @@ async function windowActions() {
             <td id="song_col" class="row${rowIndex}">${item.song_name}</td>
             <td id="explicit_col" class="row${rowIndex}">${item.explicit}</td>
             <td><input type='button' id='edit_button≈' value='Edit' class='edit row${rowIndex}' onclick='edit_row'> 
-            <input type='button' id='save_button' value='Save' class='save row${rowIndex}' onclick='save_row'> 
             <input type='button' id='delete_button' value='Delete' class='delete row${rowIndex}' onclick='delete_row'></td>`;
 
     if (userAddedSong) {
