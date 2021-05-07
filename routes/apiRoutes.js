@@ -355,7 +355,7 @@ router.route('/songs')
   .post(async (req, res) => {
     console.log("post request on songs", req.body)
     const songs = await db.Songs.findAll();
-    const currentId = (await songs.length) + 1;
+    const currentId = songs[songs.length] + 1;
     let explicitVal = true;
     if (req.body.explicitInput) {
       explicitVal = true;
@@ -402,8 +402,7 @@ router.route('/songs')
             explicit: req.body.explicit
           }
         });
-        console.log(req.body.song_name);
-        console.log(req.body.explicit);
+        console.log(req.body.song_name, req.body.explicit);
         res.send('Successfully Deleted');
     } catch (err) {
       console.error(err);

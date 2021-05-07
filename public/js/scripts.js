@@ -46,6 +46,27 @@ async function getUserAddedSongs() {
   return songData;
 }
 
+async function getSongs() {
+  const songRequest = await fetch("/api/songs");
+  const songData = await songRequest.json();
+  return songData;
+}
+
+async function getID(songName, explicitVal) {
+  // const songsData = await getUserAddedSongs();
+  //   var rowID = 0;
+  //   //console.table(songName, explicitVal);
+  //   songsData.data.forEach((item) => {
+  //     console.log(songName, explicitVal);
+  //     console.log(item.song_name, item.explicit, item.song_id);
+  //     if (item.song_name === songName && item.explicit === explicitVal) {
+  //       rowID = item.song_id;
+  //       console.log(rowID);
+  //     }
+  //   });
+  //   console.log(rowID);
+}
+
 /*
   Handle Edit Button Click
 */
@@ -70,17 +91,23 @@ async function editModal(event) {
 }
 
 async function delete_row(event) {
-  console.log("clicked button", event.target);
-  console.log("button value", event.target.value);
+  // console.log("clicked button", event.target);
+  // console.log("button value", event.target.value);
   const rowIndex = event.target.classList;
   if (rowIndex.length > 1) {
-    console.log(rowIndex);
+    //console.log(rowIndex);
     const row = rowIndex[1];
-    console.log(row);
+   // console.log(row);
     const rowData = document.getElementsByClassName(row);
     const songName = rowData[0].innerText;
-    const explicitVal = rowData[1].innerText;
+    const explicitInput = rowData[1].innerText;
+    let explicitVal = false;
+    if (explicitInput === "true") {
+      explicitVal = true;
+    }
     console.log(songName, explicitVal);
+
+    const rowID = getID(songName, explicitVal);
 
     fetch('/api/songs', {
       method: 'DELETE',
@@ -102,11 +129,15 @@ async function windowActions() {
   const usResults = await getUSCharts();
   const globalResults = await getGlobalCharts();
   const userResults = await getUserAddedSongs();
+  const songsResults = await getSongs();
   // console.table(usCharts.data);
   // console.table(globalResults.data);
   const usCharts = usResults.data;
   const globalCharts = globalResults.data;
   const userTable = userResults.data;
+  const songsTable = songsResults.data;
+  console.table(songsTable);
+  console.table(userTable);
 
   const usTopSong = document.querySelector(".us-top-songs");
   usCharts.forEach((item) => {
