@@ -1,50 +1,47 @@
 /* 
     NAVBAR BURGER FUNCTIONALITY
 */
-document.addEventListener('DOMContentLoaded', () => {
-
+document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-  
+  const $navbarBurgers = Array.prototype.slice.call(
+    document.querySelectorAll(".navbar-burger"),
+    0
+  );
+
   // Check if there are any navbar burgers
   if ($navbarBurgers.length > 0) {
-  
     // Add a click event on each of them
-    $navbarBurgers.forEach( el => {
-      el.addEventListener('click', () => {
-  
+    $navbarBurgers.forEach((el) => {
+      el.addEventListener("click", () => {
         // Get the target from the "data-target" attribute
         const target = el.dataset.target;
         const $target = document.getElementById(target);
-  
+
         // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
-  
+        el.classList.toggle("is-active");
+        $target.classList.toggle("is-active");
       });
     });
   }
-  
 });
-
 
 /* 
     POPULATING CHARTS/ TABLES
 */
 async function getUSCharts() {
-  const songRequest = await fetch('/api/wholeUSchart');
+  const songRequest = await fetch("/api/wholeUSchart");
   const songData = await songRequest.json();
   return songData;
 }
 
 async function getGlobalCharts() {
-  const songRequest = await fetch('/api/wholeGlobalChart');
+  const songRequest = await fetch("/api/wholeGlobalChart");
   const songData = await songRequest.json();
   return songData;
 }
 
 async function getUserAddedSongs() {
-  const songRequest = await fetch('/api/userSongs');
+  const songRequest = await fetch("/api/userSongs");
   const songData = await songRequest.json();
   return songData;
 }
@@ -52,9 +49,10 @@ async function getUserAddedSongs() {
 /*
   Handle Edit Button Click
 */
-async function edit_row(event){
-  console.log('clicked button', event.target)
-  console.log('button value', event.target.value);
+async function editModal(event) {
+  console.log("clicked button", event.target);
+  console.log("button value", event.target.value);
+
   // const name = document.querySelector('#song_col');
   // const url = `api/songs/${event.target.value}`;
   // const put = await fetch(url, {
@@ -71,6 +69,35 @@ async function edit_row(event){
   // event.target.innerText = explicitUpdate;
 }
 
+async function delete_row(event) {
+  console.log("clicked button", event.target);
+  console.log("button value", event.target.value);
+  const rowIndex = event.target.classList;
+  if (rowIndex.length > 1) {
+    console.log(rowIndex);
+    const row = rowIndex[1];
+    console.log(row);
+    const rowData = document.getElementsByClassName(row);
+    const songName = rowData[0].innerText;
+    const explicitVal = rowData[1].innerText;
+    console.log(songName, explicitVal);
+
+    fetch('/api/songs', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({song_name: songName, explicit: explicitVal})
+    })
+      //.then((fromServer) => fromServer.json())
+      //.then((jsonFromServer) => runThisWithResultsFromServer(jsonFromServer))
+      .catch((err) => {
+        console.log(err);
+      });
+
+  } 
+}
+
 async function windowActions() {
   const usResults = await getUSCharts();
   const globalResults = await getGlobalCharts();
@@ -81,25 +108,24 @@ async function windowActions() {
   const globalCharts = globalResults.data;
   const userTable = userResults.data;
 
-  const usTopSong = document.querySelector('.us-top-songs');
+  const usTopSong = document.querySelector(".us-top-songs");
   usCharts.forEach((item) => {
-    const appendItem = document.createElement('tr');
+    const appendItem = document.createElement("tr");
 
     appendItem.innerHTML = `
             <td>${item.us_top50_rank}</td>
             <td>${item.song_name}</td>
             <td>${item.artist_name}</td>
             <td>${item.streams}</td>`;
-        
+
     if (usTopSong) {
       usTopSong.append(appendItem);
     }
-        
   });
 
-  const globalTopSong = document.querySelector('.global-top-songs');
+  const globalTopSong = document.querySelector(".global-top-songs");
   globalCharts.forEach((item) => {
-    const appendItem = document.createElement('tr');
+    const appendItem = document.createElement("tr");
 
     appendItem.innerHTML = `
             <td>${item.global_top50_rank}</td>
@@ -108,27 +134,118 @@ async function windowActions() {
             <td>${item.streams}</td>`;
 
     if (globalTopSong) {
-      globalTopSong.append(appendItem); 
+      globalTopSong.append(appendItem);
     }
-        
   });
 
-  const userAddedSong = document.querySelector('.playlist-table');
+  const userAddedSong = document.querySelector(".playlist-table");
+  let rowIndex = document.getElementById("myTable").rows.length;
+  console.log(rowIndex);
   userTable.forEach((item) => {
-    const appendItem = document.createElement('tr');
-
+    const appendItem = document.createElement("tr");
+    rowIndex++;
+    console.log(rowIndex);
     appendItem.innerHTML = `
-            <td id="song_col">${item.song_name}</td>
-            <td id="explicit_col">${item.explicit}</td>
-            <td><input type='button' id='edit_button"+table_len+"' value='Edit' class='edit' onclick='edit_row("+table_len+")'> <input type='button' id='save_button"+table_len+"' value='Save' class='save' onclick='save_row("+table_len+")'> <input type='button' value='Delete' class='delete' onclick='delete_row("+table_len+")'></td>`;
+            <td id="song_col" class="row${rowIndex}">${item.song_name}</td>
+            <td id="explicit_col" class="row${rowIndex}">${item.explicit}</td>
+            <td><input type='button' id='edit_button' value='Edit' class='edit row${rowIndex} modal-button' onclick='editModal' data-target="modal-edit" aria-haspopup="true">
+            
+            <div id="modal-edit" class="modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                        <p class="modal-card-title">Edit Song</p>
+                        <button class="delete" aria-label="close"></button>
+                        </header>
+                        <section class="modal-card-body">
+                          <!-- BEGINNING OF FORM -->
+                          <form action='/api/songs' method='post'>
+                            <input type="hidden" name="_method" value="put" />
+                            <div class='form-row'>
+                              <label for='songInput'>Song Title</label>
+                              <input class="input" id='songInput' name='songInput' type='text' required/>
+                            </div>
+                            <br>
+                            <div class='form-row'>
+                              <label class="checkbox">
+                                <input type="checkbox" name="explicitInput" id="explicitInput" checked = "true">
+                                Explicit
+                              </label>
+                        </section>
+                        <footer class="modal-card-foot">
+                        <button class="button is-link center" type="submit" name="submit" id="submit" formmethod="post">Save</button>
+                        <button class="button center">Cancel</button>
+                        </footer>
+                          </form>
+                    </div>
+                </div>
+
+
+            <input type='button' id='delete_button' value='Delete' class='delete row${rowIndex}' onclick='delete_row'></td>`;
 
     if (userAddedSong) {
-      userAddedSong.append(appendItem); 
+      userAddedSong.append(appendItem);
     }
-
   });
-  const editBtn = document.querySelector('.edit');
-  editBtn.addEventListener('click', (event) => { edit_row(event); });
+  const editBtn = document.querySelectorAll(".edit");
+  //console.log(editBtn);
+  const deleteBtn = document.querySelectorAll(".delete");
+  //console.log(deleteBtn);
+
+  let rootEl = document.documentElement;
+  let $modals = document.querySelectorAll(".modal");
+  let $modalButtons = document.querySelectorAll(".modal-button");
+  let $modalCloses = document.querySelectorAll(
+    ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
+  );
+  editBtn.forEach((item) => {
+    if ($modalButtons.length > 0) {
+      $modalButtons.forEach(function ($el) {
+        $el.addEventListener("click", function () {
+          let target = $el.dataset.target;
+          let $target = document.getElementById(target);
+          rootEl.classList.add("is-clipped");
+          $target.classList.add("is-active");
+        });
+      });
+    }
+  
+    if ($modalCloses.length > 0) {
+      $modalCloses.forEach(function ($el) {
+        $el.addEventListener("click", function () {
+          closeModals();
+        });
+      });
+    }
+  
+    document.addEventListener("keydown", function (event) {
+      let e = event || window.event;
+      if (e.keyCode === 27) {
+        closeModals();
+      }
+    });
+  
+    function closeModals() {
+      rootEl.classList.remove("is-clipped");
+      $modals.forEach(function ($el) {
+        $el.classList.remove("is-active");
+      });
+    }
+  
+    // Functions
+  
+    function getAll(selector) {
+      return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+    }
+    });
+
+
+  deleteBtn.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      delete_row(event);
+    });
+  });
+  
 }
 
 window.onload = windowActions;
@@ -136,56 +253,57 @@ window.onload = windowActions;
 /* 
     MODAL POP-UP 
 */
-'use strict';
+("use strict");
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
+  // Modals
 
-// Modals
+  let rootEl = document.documentElement;
+  let $modals = getAll(".modal");
+  let $modalButtons = getAll(".modal-button");
+  let $modalCloses = getAll(
+    ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
+  );
 
-let rootEl = document.documentElement;
-let $modals = getAll('.modal');
-let $modalButtons = getAll('.modal-button');
-let $modalCloses = getAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button');
-
-if ($modalButtons.length > 0) {
+  if ($modalButtons.length > 0) {
     $modalButtons.forEach(function ($el) {
-    $el.addEventListener('click', function () {
+      console.log($el);
+      $el.addEventListener("click", function () {
         let target = $el.dataset.target;
         let $target = document.getElementById(target);
-        rootEl.classList.add('is-clipped');
-        $target.classList.add('is-active');
+        rootEl.classList.add("is-clipped");
+        $target.classList.add("is-active");
+      });
     });
-    });
-}
+  }
 
-if ($modalCloses.length > 0) {
+  if ($modalCloses.length > 0) {
     $modalCloses.forEach(function ($el) {
-    $el.addEventListener('click', function () {
+      $el.addEventListener("click", function () {
         closeModals();
+      });
     });
-    });
-}
+  }
 
-document.addEventListener('keydown', function (event) {
+  document.addEventListener("keydown", function (event) {
     let e = event || window.event;
     if (e.keyCode === 27) {
-    closeModals();
+      closeModals();
     }
-});
+  });
 
-function closeModals() {
-    rootEl.classList.remove('is-clipped');
+  function closeModals() {
+    rootEl.classList.remove("is-clipped");
     $modals.forEach(function ($el) {
-    $el.classList.remove('is-active');
+      $el.classList.remove("is-active");
     });
-}
+  }
 
-// Functions
+  // Functions
 
-function getAll(selector) {
+  function getAll(selector) {
     return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
-}
-
+  }
 });
 
 /* 
@@ -232,7 +350,6 @@ function getAll(selector) {
 //   }
 //   const num = parseInt(num_playlist);
 //   document.cookie = "num_playlist =" + (num+1).toString();
-    
 
 //   document.cookie = "playlist" + num.toString() + "= content";
 //   console.log(getPlaylists());

@@ -356,11 +356,17 @@ router.route('/songs')
     console.log("post request on songs", req.body)
     const songs = await db.Songs.findAll();
     const currentId = (await songs.length) + 1;
+    let explicitVal = true;
+    if (req.body.explicitInput) {
+      explicitVal = true;
+    } else {
+      explicitVal = false;
+    };
     try {
       const newSong = await db.Songs.create({
         song_id: currentId,
         song_name: req.body.songInput,
-        explicit: req.body.explicitInput
+        explicit: explicitVal
       });
       // res.json(newSong);
     } catch (err) {
@@ -372,8 +378,8 @@ router.route('/songs')
     try {
       await db.Songs.update(
         {
-          song_name: req.body.song_name,
-          explicit: req.body.explicit
+          song_name: req.body.songInput,
+          explicit: req.body.explicitInput
         },
         {
           where: {
@@ -381,14 +387,28 @@ router.route('/songs')
           }
         }
       );
+      console.log("put");
       res.send('Successfully Updated');
     } catch (err) {
       console.error(err);
       res.error('Server error');
     }
   })
-  .delete((req, res) => {
-    res.send('Action unavailable');
+  .delete(async (req, res) => {
+    try {
+        await db.Songs.destroy({
+          where: {
+            song_name: req.body.song_name,
+            explicit: req.body.explicit
+          }
+        });
+        console.log(req.body.song_name);
+        console.log(req.body.explicit);
+        res.send('Successfully Deleted');
+    } catch (err) {
+      console.error(err);
+      res.error('Server error');
+    }
   })
 
 router.route('/songs/:song_id')
