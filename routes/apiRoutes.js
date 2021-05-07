@@ -378,16 +378,18 @@ router.route('/songs')
     try {
       await db.Songs.update(
         {
-          song_name: req.body.songInput,
-          explicit: req.body.explicitInput
+          song_name: req.body.updatedSong,
+          explicit: req.body.updatedExplicit
         },
         {
           where: {
-            song_id: req.body.song_id
+            song_name: req.body.song_name,
+          explicit: req.body.explicit
           }
         }
       );
-      console.log("put");
+      console.log(req.body.updatedSong, req.body.updatedExplicit);
+      console.log(req.body.song_name, req.body.explicit);
       res.send('Successfully Updated');
     } catch (err) {
       console.error(err);
