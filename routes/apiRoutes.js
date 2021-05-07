@@ -355,7 +355,7 @@ router.route('/songs')
   .post(async (req, res) => {
     console.log("post request on songs", req.body)
     const songs = await db.Songs.findAll();
-    const currentId = (await songs.length) + 1;
+    const currentId = songs[songs.length] + 1;
     let explicitVal = true;
     if (req.body.explicitInput) {
       explicitVal = true;
@@ -378,16 +378,18 @@ router.route('/songs')
     try {
       await db.Songs.update(
         {
-          song_name: req.body.songInput,
-          explicit: req.body.explicitInput
+          song_name: req.body.updatedSong,
+          explicit: req.body.updatedExplicit
         },
         {
           where: {
-            song_id: req.body.song_id
+            song_name: req.body.song_name,
+          explicit: req.body.explicit
           }
         }
       );
-      console.log("put");
+      console.log(req.body.updatedSong, req.body.updatedExplicit);
+      console.log(req.body.song_name, req.body.explicit);
       res.send('Successfully Updated');
     } catch (err) {
       console.error(err);
@@ -402,8 +404,7 @@ router.route('/songs')
             explicit: req.body.explicit
           }
         });
-        console.log(req.body.song_name);
-        console.log(req.body.explicit);
+        console.log(req.body.song_name, req.body.explicit);
         res.send('Successfully Deleted');
     } catch (err) {
       console.error(err);

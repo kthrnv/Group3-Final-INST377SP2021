@@ -46,40 +46,79 @@ async function getUserAddedSongs() {
   return songData;
 }
 
+async function getSongs() {
+  const songRequest = await fetch("/api/songs");
+  const songData = await songRequest.json();
+  return songData;
+}
+
 /*
   Handle Edit Button Click
 */
-async function editModal(event) {
+async function edit_row(event) {
   console.log("clicked button", event.target);
   console.log("button value", event.target.value);
 
-  // const name = document.querySelector('#song_col');
-  // const url = `api/songs/${event.target.value}`;
-  // const put = await fetch(url, {
-  //   method: 'PUT',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({song_name: name.value, song_id: event.target.value})
-  // });
-  // const nameUpdate = await put.json();
-  // const explicitUpdate = await put.json();
-  // // console.log(nameUpdate);
-  // event.target.innerText = nameUpdate;
-  // event.target.innerText = explicitUpdate;
+  const rowIndex = event.target.classList;
+  const row = rowIndex[0].substring(3);
+    console.log(row);
+    const rowData = document.getElementsByClassName(rowIndex[0]);
+    console.log(rowData);
+    const songName = rowData[0].innerText;
+    const explicitInput = rowData[1].innerText;
+    let explicitVal = false;
+    if (explicitInput === "true") {
+      explicitVal = true;
+    }
+    console.log(songName, explicitVal);
+
+    const newSongName = document.querySelector(".input" + row).value;
+    console.log(newSongName);
+
+    let newExplicit = false;
+    try {
+
+      if (document.querySelector(".checkbox" + row +":checked").value === null) {
+        newExplicit = false;
+      } else {
+        newExplicit = true;
+      }
+
+    } catch {
+      newExplicit = false;
+    }
+    
+    console.log(newExplicit);
+
+    fetch('/api/songs', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({song_name: songName, explicit: explicitVal, updatedSong: newSongName, updatedExplicit: newExplicit})
+    })
+      //.then((fromServer) => fromServer.json())
+      //.then((jsonFromServer) => runThisWithResultsFromServer(jsonFromServer))
+      .catch((err) => {
+        console.log(err);
+      });
 }
 
 async function delete_row(event) {
-  console.log("clicked button", event.target);
-  console.log("button value", event.target.value);
+  // console.log("clicked button", event.target);
+  // console.log("button value", event.target.value);
   const rowIndex = event.target.classList;
   if (rowIndex.length > 1) {
-    console.log(rowIndex);
+    //console.log(rowIndex);
     const row = rowIndex[1];
-    console.log(row);
+   // console.log(row);
     const rowData = document.getElementsByClassName(row);
     const songName = rowData[0].innerText;
-    const explicitVal = rowData[1].innerText;
+    const explicitInput = rowData[1].innerText;
+    let explicitVal = false;
+    if (explicitInput === "true") {
+      explicitVal = true;
+    }
     console.log(songName, explicitVal);
 
     fetch('/api/songs', {
@@ -102,11 +141,15 @@ async function windowActions() {
   const usResults = await getUSCharts();
   const globalResults = await getGlobalCharts();
   const userResults = await getUserAddedSongs();
+  const songsResults = await getSongs();
   // console.table(usCharts.data);
   // console.table(globalResults.data);
   const usCharts = usResults.data;
   const globalCharts = globalResults.data;
   const userTable = userResults.data;
+  const songsTable = songsResults.data;
+  console.table(songsTable);
+  console.table(userTable);
 
   const usTopSong = document.querySelector(".us-top-songs");
   usCharts.forEach((item) => {
@@ -148,13 +191,13 @@ async function windowActions() {
     appendItem.innerHTML = `
             <td id="song_col" class="row${rowIndex}">${item.song_name}</td>
             <td id="explicit_col" class="row${rowIndex}">${item.explicit}</td>
-            <td><input type='button' id='edit_button' value='Edit' class='edit row${rowIndex} modal-button' onclick='editModal' data-target="modal-edit" aria-haspopup="true">
+            <td><input type='button' id='edit_button' value='Edit' class='edit row${rowIndex} modal-button' onclick='edit_row' data-target="modal-edit${rowIndex}" aria-haspopup="true">
             
-            <div id="modal-edit" class="modal">
+            <div id="modal-edit${rowIndex}" class="modal">
                     <div class="modal-background"></div>
                     <div class="modal-card">
                         <header class="modal-card-head">
-                        <p class="modal-card-title">Edit Song</p>
+                        <p class="modal-card-title">Edit Song ${rowIndex}</p>
                         <button class="delete" aria-label="close"></button>
                         </header>
                         <section class="modal-card-body">
@@ -163,17 +206,17 @@ async function windowActions() {
                             <input type="hidden" name="_method" value="put" />
                             <div class='form-row'>
                               <label for='songInput'>Song Title</label>
-                              <input class="input" id='songInput' name='songInput' type='text' required/>
+                              <input class="input${rowIndex}" id='songInput' name='songInput' type='text' required/>
                             </div>
                             <br>
                             <div class='form-row'>
                               <label class="checkbox">
-                                <input type="checkbox" name="explicitInput" id="explicitInput" checked = "true">
+                                <input type="checkbox" class="checkbox${rowIndex}" name="explicitInput" id="explicitInput">
                                 Explicit
                               </label>
                         </section>
                         <footer class="modal-card-foot">
-                        <button class="button is-link center" type="submit" name="submit" id="submit" formmethod="post">Save</button>
+                        <button class="row${rowIndex} button is-link center save" type="save" value="save" id="save" formmethod="post">Save</button>
                         <button class="button center">Cancel</button>
                         </footer>
                           </form>
@@ -191,6 +234,7 @@ async function windowActions() {
   //console.log(editBtn);
   const deleteBtn = document.querySelectorAll(".delete");
   //console.log(deleteBtn);
+  const saveBtn = document.querySelectorAll(".save");
 
   let rootEl = document.documentElement;
   let $modals = document.querySelectorAll(".modal");
@@ -243,6 +287,12 @@ async function windowActions() {
   deleteBtn.forEach((item) => {
     item.addEventListener("click", (event) => {
       delete_row(event);
+    });
+  });
+
+  saveBtn.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      edit_row(event);
     });
   });
   
