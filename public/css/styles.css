@@ -80,3 +80,8 @@
     padding-left: calc(1em + .25em);
     padding-right: calc(1em + .25em);
 }
+
+.note {
+    font-style: italic;
+    color: #2160c4;
+}
