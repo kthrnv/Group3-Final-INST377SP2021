@@ -384,7 +384,7 @@ router.route('/songs')
         {
           where: {
             song_name: req.body.song_name,
-          explicit: req.body.explicit
+            explicit: req.body.explicit
           }
         }
       );
