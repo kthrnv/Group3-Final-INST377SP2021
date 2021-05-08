@@ -58,6 +58,7 @@ There is no prewritten tests in this repository. Testing was mainly done through
 **Bugs:**
 * Application does not check whether a song is already in the database if a user adds a pre-existing song
 * Application does not reformat user input to the style standards that were used to create the database
+* Application does not automatically change the table in youraddedsongs.html if a user adds, edits, or deletes a song, which makes it difficult to see if the action succeeded. Users must manually reload the page after each action in order for the table to update.
 * Users cannot specify the artist of a song they are adding because Artists and Songs data are on two different tables within the database. Because of this complexity, only the song name and explicit values are requested (both part of Songs data) and are displayed in the generator table and user-added table.
 
 **Future Development:**
