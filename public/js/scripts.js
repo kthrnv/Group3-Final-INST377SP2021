@@ -53,7 +53,7 @@ async function getSongs() {
 }
 
 /*
-  Handle Edit Button Click
+  Handle Edit/Save Button Click
 */
 async function edit_row(event) {
   console.log("clicked button", event.target);
@@ -103,6 +103,9 @@ async function edit_row(event) {
         console.log(err);
       });
 }
+
+
+// Handle Delete Button Click
 
 async function delete_row(event) {
   // console.log("clicked button", event.target);
@@ -181,6 +184,8 @@ async function windowActions() {
     }
   });
 
+  //Populating form and table for Your Added Songs page
+  
   const userAddedSong = document.querySelector(".playlist-table");
   let rowIndex = document.getElementById("myTable").rows.length;
   console.log(rowIndex);
@@ -230,6 +235,9 @@ async function windowActions() {
       userAddedSong.append(appendItem);
     }
   });
+
+  //assigning event listeners to each row of buttons
+
   const editBtn = document.querySelectorAll(".edit");
   //console.log(editBtn);
   const deleteBtn = document.querySelectorAll(".deleted");
